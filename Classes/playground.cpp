@@ -15,7 +15,6 @@ USING_NS_CC;
 
 const float TIME_LIMIT_SECOND = 60;
 
-
 playground::playground()
 :
 _player(NULL),
@@ -121,10 +120,6 @@ bool playground::init()
     secondLabelHeader->setPosition(Vec2(size.width / 2.0, size.height - 7));
     this->addChild(secondLabelHeader);
     
-    auto button1 = Sprite::create("turbo.png");
-    button1->setPosition(Vec2(10,10));
-    this->addChild(button1);
-    
     this->setPlayer(Sprite::create("character.png"));
     _player->setPosition(Vec2(_x1,_y1));
     this->runAction(Sequence::create(Spawn::create(CallFunc::create([this]{
@@ -134,8 +129,7 @@ bool playground::init()
     }),NULL));
     
     auto listener = EventListenerTouchOneByOne::create();
-    listener->onTouchBegan = [this,size,button1](Touch* touch,Event* event){
-        auto getButtonPosition = button1->getPosition();
+    listener->onTouchBegan = [this,size](Touch* touch,Event* event){
         if(_state==GameState::Playing){
             this->schedule(schedule_selector(playground::circlePlayer));
         }
